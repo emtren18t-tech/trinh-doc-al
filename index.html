@@ -3,81 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Voice Reader - GitHub Pages</title>
+    <title>AI Voice Reader - Trình Đọc Văn Bản</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        <style>
-    @import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;700&display=swap');
-    
-    body {
-        /* Thay link ảnh của bạn vào đây */
-        background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('LINK_ẢNH_CỦA_BẠN');
-        background-size: cover;
-        background-position: center;
-        background-attachment: fixed;
-        font-family: 'Be Vietnam Pro', sans-serif;
-        color: white;
-    }
+        @import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;700&display=swap');
+        
+        body {
+            /* THAY LINK ẢNH CỦA BẠN VÀO ĐÂY */
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
+                              url('https://images.unsplash.com/photo-1617957718614-8c23f060c2d0?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            font-family: 'Be Vietnam Pro', sans-serif;
+            min-height: 100vh;
+        }
 
-    .glass-panel {
-        background: rgba(255, 255, 255, 0.1) !important;
-        backdrop-filter: blur(15px);
-        -webkit-backdrop-filter: blur(15px);
-        border: 1px solid rgba(255, 255, 255, 0.2) !important;
-    }
-</style>
-</style>
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.1) !important;
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+    </style>
 </head>
-<body class="p-4 md:p-8 min-h-screen flex items-center justify-center text-slate-200">
-    <div class="max-w-4xl w-full space-y-6">
-        <div class="flex items-center gap-3 mb-2">
-            <div class="p-3 bg-blue-600 rounded-2xl shadow-lg"><i class="fas fa-microchip text-white text-2xl"></i></div>
-            <div><h1 class="text-2xl font-bold tracking-tight">AI Voice <span class="text-blue-500">Reader</span></h1></div>
-        </div>
-        <div class="glass-panel p-6 md:p-8 rounded-[2.5rem] shadow-2xl">
-            <textarea id="mainInput" class="w-full h-64 bg-slate-900/50 border border-slate-700 rounded-3xl p-6 text-slate-200 outline-none focus:ring-2 focus:ring-blue-500/50 resize-none leading-relaxed text-lg" placeholder="Nhập văn bản...">Chào mừng bạn đến với trình đọc văn bản AI trên GitHub!</textarea>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8 pt-6 border-t border-slate-800">
-                <div class="space-y-3">
-                    <label class="block text-[10px] font-bold text-slate-500 uppercase">Giọng đọc:</label>
-                    <select id="voiceSelect" class="w-full bg-slate-800 border border-slate-700 rounded-xl p-3 text-sm outline-none"></select>
-                </div>
-                <div class="grid grid-cols-2 gap-4">
-                    <div class="space-y-2 text-center">
-                        <label class="block text-[10px] font-bold text-slate-500 uppercase">Tốc độ: <span id="rVal" class="text-blue-400">1.0</span>x</label>
-                        <input type="range" id="rate" min="0.5" max="2" step="0.1" value="1" class="w-full accent-blue-500" oninput="document.getElementById('rVal').innerText=this.value">
-                    </div>
-                    <div class="space-y-2 text-center">
-                        <label class="block text-[10px] font-bold text-slate-500 uppercase">Cao độ: <span id="pVal" class="text-purple-400">1.0</span></label>
-                        <input type="range" id="pitch" min="0.5" max="1.5" step="0.1" value="1" class="w-full accent-purple-500" oninput="document.getElementById('pVal').innerText=this.value">
-                    </div>
-                </div>
+<body class="flex items-center justify-center p-4">
+
+    <div class="glass-panel p-8 rounded-3xl shadow-2xl w-full max-w-2xl text-white">
+        <div class="flex items-center gap-3 mb-6">
+            <div class="bg-blue-600 p-3 rounded-xl shadow-lg">
+                <i class="fas fa-microchip text-2xl"></i>
             </div>
+            <h1 class="text-3xl font-bold tracking-tight">AI Voice <span class="text-blue-400">Reader</span></h1>
         </div>
-        <div class="flex justify-center items-center gap-6">
-            <button onclick="speechSynthesis.cancel()" class="w-14 h-14 bg-slate-800 hover:text-red-500 rounded-2xl border border-slate-700 transition-all"><i class="fas fa-stop"></i></button>
-            <button onclick="speak()" class="px-12 h-16 bg-blue-600 hover:bg-blue-500 rounded-2xl text-white font-bold shadow-xl flex items-center gap-4 transition-all hover:-translate-y-1"><i class="fas fa-play"></i> Phát giọng đọc</button>
-        </div>
-    </div>
-    <script>
-        const synth = window.speechSynthesis;
-        let voices = [];
-        function loadVoices() {
-            voices = synth.getVoices().sort((a,b) => a.lang.includes('vi') ? -1 : 1);
-            const select = document.getElementById('voiceSelect');
-            if(!select) return;
-            select.innerHTML = voices.map((v, i) => `<option value="${i}">${v.name} (${v.lang})</option>`).join('');
-        }
-        function speak() {
-            synth.cancel();
-            const u = new SpeechSynthesisUtterance(document.getElementById('mainInput').value);
-            u.voice = voices[document.getElementById('voiceSelect').value];
-            u.rate = document.getElementById('rate').value;
-            u.pitch = document.getElementById('pitch').value;
-            synth.speak(u);
-        }
-        if (synth.onvoiceschanged !== undefined) synth.onvoiceschanged = loadVoices;
-        window.onload = loadVoices;
-    </script>
-</body>
-</html>
+
+        <textarea id="mainInput" class="w-full h-48 bg-slate-900/50 border border-slate-700 rounded-2xl p-4 text-slate-100 outline-none focus:ring-2 focus:ring-blue-500/50 resize-none leading-relaxed text-lg mb-6" placeholder="Nhập văn bản bạn muốn AI đọc tại đây..."></textarea>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+            <div class="space-y-2">
+                <label class="block text-xs font-bold text-slate-400 uppercase tracking-widest">Chọn giọng đọc:</
