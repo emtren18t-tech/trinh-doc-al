@@ -3,43 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Voice Reader - Trình Đọc Văn Bản</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Trang chủ</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;700&display=swap');
-        
-        body {
-            /* THAY LINK ẢNH CỦA BẠN VÀO ĐÂY */
-            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
-                              url('https://images.unsplash.com/photo-1617957718614-8c23f060c2d0?q=80&w=2070&auto=format&fit=crop');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            font-family: 'Be Vietnam Pro', sans-serif;
-            min-height: 100vh;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-
-        .glass-panel {
-            background: rgba(255, 255, 255, 0.1) !important;
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+        body, html {
+            height: 100%;
+            overflow: hidden;
+        }
+        .bg-image {
+            /* Thay link ảnh nữ công an của bạn vào đây */
+            background-image: url('https://your-image-link.jpg');
+            height: 100%;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            /* Giúp trang web tải mượt hơn */
+            background-color: #06402B; 
         }
     </style>
 </head>
-<body class="flex items-center justify-center p-4">
-
-    <div class="glass-panel p-8 rounded-3xl shadow-2xl w-full max-w-2xl text-white">
-        <div class="flex items-center gap-3 mb-6">
-            <div class="bg-blue-600 p-3 rounded-xl shadow-lg">
-                <i class="fas fa-microchip text-2xl"></i>
-            </div>
-            <h1 class="text-3xl font-bold tracking-tight">AI Voice <span class="text-blue-400">Reader</span></h1>
-        </div>
-
-        <textarea id="mainInput" class="w-full h-48 bg-slate-900/50 border border-slate-700 rounded-2xl p-4 text-slate-100 outline-none focus:ring-2 focus:ring-blue-500/50 resize-none leading-relaxed text-lg mb-6" placeholder="Nhập văn bản bạn muốn AI đọc tại đây..."></textarea>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-            <div class="space-y-2">
-                <label class="block text-xs font-bold text-slate-400 uppercase tracking-widest">Chọn giọng đọc:</
+<body>
+    <div class="bg-image"></div>
+</body>
+</html>
